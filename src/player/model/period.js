@@ -8,4 +8,6 @@ export class Period {
   constructor(adaptationSets) {
     this.adaptationSets = adaptationSets;
   }
+
+  getAdaptationSetFor = type => this.adaptationSets.find(({ attributes: { mimeType } }) => mimeType.includes(type));
 }

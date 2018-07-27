@@ -15,4 +15,6 @@ export class Manifest {
     this.periods = periods;
     this.baseUrl = baseUrl;
   }
+
+  getCurrentPeriod = () => this.periods[0];
 }
