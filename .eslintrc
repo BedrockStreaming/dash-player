@@ -1,0 +1,59 @@
+{
+  "extends": "plugin:@m6web/eslint-plugin-react/default",
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "jasmine": true
+  },
+  "rules": {
+    "class-methods-use-this": "off",
+    "func-names": "off",
+    "global-require": "off",
+    "import/no-dynamic-require": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": true,
+        "peerDependencies": false
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/aria-role": "off",
+    "jsx-a11y/alt-text": "off",
+    "jsx-a11y/media-has-caption": "off",
+    "jsx-a11y/iframe-has-title": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/mouse-events-have-key-events": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "new-cap": [
+      "error",
+      {
+        "newIsCapExceptions": ["eStatTag"],
+        "capIsNewExceptions": ["Krux", "StringDecoder", "MediaPlayer"]
+      }
+    ],
+    "no-underscore-dangle": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "no-plusplus": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": ["rxjs", "rxjs/Rx", "rxjs/Observable", "enzyme-to-json", "lodash-es"]
+      }
+    ],
+    "no-script-url": "off",
+    "prefer-arrow-callback": "off",
+    "react/forbid-prop-types": "off",
+    "react/jsx-no-target-blank": "off",
+    "react/no-string-refs": "off",
+    "react/no-danger": "off",
+    "react/no-unescaped-entities": "off",
+    "react/require-default-props": "off",
+    "react/jsx-filename-extension": ["error", { "extensions": [".js"] }]
+  },
+  "globals": {}
+}
