@@ -55,5 +55,7 @@
     "react/require-default-props": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js"] }]
   },
-  "globals": {}
+  "globals": {
+    "jest": false
+  }
 }

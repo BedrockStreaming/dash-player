@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -26,7 +27,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: __dirname + '../../../src/playground/index.html',
+      template: path.join(__dirname, '../../src/playground/index.html'),
       filename: 'index.html',
     }),
   ],
