@@ -16,5 +16,9 @@ export class Manifest {
     this.baseUrl = baseUrl;
   }
 
+  generateUrl() {
+    return this.url.substring(0, this.url.lastIndexOf('/') + 1) + this.baseUrl;
+  }
+
   getCurrentPeriod = () => this.periods[0];
 }

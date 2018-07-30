@@ -1,4 +1,5 @@
 import { ALL } from '../constants/events';
+import { logger } from '../service/logger';
 
 export const eventBus = new class EventBus {
   constructor() {
@@ -26,7 +27,7 @@ export const eventBus = new class EventBus {
       try {
         listener(event);
       } catch (error) {
-        console.warn(error);
+        logger.warn(error);
       }
     });
   };

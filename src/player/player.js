@@ -4,6 +4,7 @@ import { MediaSource } from './components/mediaSource';
 import { MANIFEST_LOADED } from './constants/events';
 
 import { Manifest } from './model/manifest';
+import { FragmentManager } from '../player/service/fragmentManager';
 
 export class Player {
   constructor(videoRef) {
@@ -16,17 +17,18 @@ export class Player {
       .then(response => response.text())
       .then(str => new window.DOMParser().parseFromString(str, 'text/xml'))
       .then(xml => {
-        console.log(xml);
-
         const manifest = Manifest.createFrom(xml);
+
         manifest.url = url;
+
+        const fm = new FragmentManager(manifest.generateUrl());
+        const wMediaSource = new window.MediaSource();
 
         eventBus.triggerEvent({ type: MANIFEST_LOADED, manifest });
 
-        const mediaSource = new MediaSource(this.videoRef, manifest);
-        mediaSource.loadManifest(manifest);
+        const mediaSource = new MediaSource(manifest.getCurrentPeriod(), wMediaSource, ['video', 'audio'], fm);
 
-        this.videoRef.src = mediaSource.getObjectURL();
+        this.videoRef.src = URL.createObjectURL(wMediaSource);
       });
   }
 

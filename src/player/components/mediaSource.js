@@ -1,97 +1,37 @@
 import { SourceBuffer } from './sourceBuffer';
 
 export class MediaSource {
-  constructor() {
+  constructor(period, windowMediaSource, tracks, fm) {
+    this.mediaSource = windowMediaSource;
+    this.tracks = tracks;
     this.queue = [];
     this.buffers = {};
+    this.fm = fm;
+    this.currentPeriod = period;
+
+    this.mediaSource.addEventListener('sourceopen', this.onSourceOpen);
   }
 
-  getObjectURL = () => URL.createObjectURL(this.mediaSource);
-
-  loadManifest = (manifest, type) => {
-    this.manifest = manifest;
-    this.type = type;
-
-    this.mediaSource = new window.MediaSource();
-    this.mediaSource.addEventListener('sourceopen', this.onSourceOpen);
+  setCurrentPeriod = period => {
+    this.currentPeriod = period;
   };
 
   onSourceOpen = () => {
-    this.buffers = ['video', 'audio'].reduce((acc, type) => ({ ...acc, [type]: this.createBuffer(type) }), {});
+    this.buffers = this.tracks.reduce((acc, type) => ({ ...acc, [type]: this.createBuffer(type) }), {});
 
-    ['video', 'audio'].forEach(type => this.fetchFragmentsFor(type));
+    this.tracks.forEach(type => {
+      const adaptationSet = this.currentPeriod.findAdaptationSetByType(type);
+      this.fm.initFragments(adaptationSet, this.increaseBuffer(type));
+    });
   };
 
   createBuffer(type) {
-    const { manifest, mediaSource } = this;
-    const {
-      representations: [
-        {
-          attributes: { codecs },
-        },
-      ],
-      attributes: { mimeType },
-    } = manifest.getCurrentPeriod().getAdaptationSetFor(type);
+    const adaptationSet = this.currentPeriod.findAdaptationSetByType(type);
+    const codec = adaptationSet.mimeType();
+    const buffer = this.mediaSource.addSourceBuffer(codec);
 
-    const codec = `${mimeType}; codecs="${codecs}"`;
-
-    console.debug(type, 'loading codec', codec);
-
-    return new SourceBuffer(mediaSource, codec);
+    return new SourceBuffer(buffer);
   }
 
-  fetchFragmentsFor(type) {
-    const { manifest } = this;
-    const {
-      segmentTemplate: { initialization, duration },
-      representations: [
-        {
-          attributes: { id },
-        },
-      ],
-    } = manifest.getCurrentPeriod().getAdaptationSetFor(type);
-
-    const initFragment =
-      manifest.url.substring(0, manifest.url.lastIndexOf('/') + 1) +
-      manifest.baseUrl +
-      initialization.replace(/\$RepresentationID\$/g, id);
-
-    this.fetchFragment(type, initFragment).then(() => {
-      const segments = Math.round(30 / (duration / 1000));
-
-      let promise = Promise.resolve();
-
-      for (let fragmentNumber = 1; fragmentNumber <= segments; fragmentNumber++) {
-        promise = promise.then(() => this.fetchFragment(type, this.getFragmentUrl(type, fragmentNumber)));
-      }
-    });
-  }
-
-  getFragmentUrl = (type, number) => {
-    const { manifest } = this;
-    const {
-      segmentTemplate: { media },
-      representations: [
-        {
-          attributes: { id },
-        },
-      ],
-    } = manifest.getCurrentPeriod().getAdaptationSetFor(type);
-
-    return (
-      manifest.url.substring(0, manifest.url.lastIndexOf('/') + 1) +
-      manifest.baseUrl +
-      media.replace(/\$RepresentationID\$/g, id).replace('$Number$', number)
-    );
-  };
-
-  fetchFragment(type, url) {
-    return fetch(url)
-      .then(response => response.arrayBuffer())
-      .then(data => {
-        this.buffers[type].append({ bytes: data });
-
-        return data;
-      });
-  }
+  increaseBuffer = type => bytes => this.buffers[type].append({ bytes });
 }
