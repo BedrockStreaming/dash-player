@@ -42,6 +42,4 @@ export class AdaptationSet {
   readableInitializer() {
     return this.makeReadable('initialization');
   }
-
-  makeUrl() {}
 }

@@ -1,12 +1,12 @@
 import { SourceBuffer } from './sourceBuffer';
 
 export class MediaSource {
-  constructor(period, windowMediaSource, tracks, fm) {
+  constructor(period, windowMediaSource, tracks, fragmentManager) {
     this.mediaSource = windowMediaSource;
     this.tracks = tracks;
     this.queue = [];
     this.buffers = {};
-    this.fm = fm;
+    this.fragmentManager = fragmentManager;
     this.currentPeriod = period;
 
     this.mediaSource.addEventListener('sourceopen', this.onSourceOpen);
@@ -21,7 +21,7 @@ export class MediaSource {
 
     this.tracks.forEach(type => {
       const adaptationSet = this.currentPeriod.findAdaptationSetByType(type);
-      this.fm.initFragments(adaptationSet, this.increaseBuffer(type));
+      this.fragmentManager.initFragments(adaptationSet, this.increaseBuffer(type));
     });
   };
 
