@@ -1,10 +1,10 @@
 {
-  "name": "player-dash",
+  "name": "dash-player",
   "version": "1.0.0-master",
-  "description": "Player dash",
+  "description": "DASH Player",
   "repository": {
     "type": "git",
-    "url": "https://github.m6web.fr/v-valot/player-dash.git"
+    "url": "https://github.com/M6Web/dash-player"
   },
   "engines": {
     "node": ">= 6.4.0",
@@ -13,7 +13,6 @@
   },
   "author": "M6Web",
   "license": "UNLICENSED",
-  "private": true,
   "dependencies": {
     "babel-loader": "7.1.5",
     "babel-plugin-styled-components": "1.5.1",
@@ -44,11 +43,6 @@
     "jest": "23.4.1",
     "jest-environment-jsdom-global": "1.1.0",
     "webpack-dev-server": "3.1.4"
-  },
-  "config": {
-    "structure": {
-      "modules": "./src/app/modules"
-    }
   },
   "scripts": {
     "dev": "webpack-dev-server --config config/webpack/dev.config",
