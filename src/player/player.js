@@ -22,13 +22,12 @@ export class Player {
         manifest.url = url;
 
         const fm = new FragmentManager(manifest.generateUrl());
-        const wMediaSource = new window.MediaSource();
 
         eventBus.triggerEvent({ type: MANIFEST_LOADED, manifest });
 
-        const mediaSource = new MediaSource(manifest.getCurrentPeriod(), wMediaSource, ['video', 'audio'], fm);
+        const mediaSource = new MediaSource(manifest.getCurrentPeriod(), ['video', 'audio'], fm);
 
-        this.videoRef.src = URL.createObjectURL(wMediaSource);
+        this.videoRef.src = mediaSource.mediaUrl();
       });
   }
 

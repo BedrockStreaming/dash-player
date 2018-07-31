@@ -1,8 +1,8 @@
 import { SourceBuffer } from './sourceBuffer';
 
 export class MediaSource {
-  constructor(period, windowMediaSource, tracks, fragmentManager) {
-    this.mediaSource = windowMediaSource;
+  constructor(period, tracks, fragmentManager) {
+    this.mediaSource = new window.MediaSource();
     this.tracks = tracks;
     this.queue = [];
     this.buffers = {};
@@ -11,6 +11,8 @@ export class MediaSource {
 
     this.mediaSource.addEventListener('sourceopen', this.onSourceOpen);
   }
+
+  mediaUrl = () => URL.createObjectURL(this.mediaSource);
 
   setCurrentPeriod = period => {
     this.currentPeriod = period;
