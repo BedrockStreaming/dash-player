@@ -23,7 +23,7 @@ export class MediaSource {
 
     this.tracks.forEach(type => {
       const adaptationSet = this.currentPeriod.findAdaptationSetByType(type);
-      this.fragmentManager.initFragments(adaptationSet, this.increaseBuffer(type));
+      this.fragmentManager.initFragments(adaptationSet, this.appendBuffer(type));
     });
   };
 
@@ -35,5 +35,5 @@ export class MediaSource {
     return new SourceBuffer(buffer);
   }
 
-  increaseBuffer = type => bytes => this.buffers[type].append({ bytes });
+  appendBuffer = type => bytes => this.buffers[type].append({ bytes });
 }
