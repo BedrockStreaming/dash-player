@@ -9,5 +9,5 @@ export class Period {
     this.adaptationSets = adaptationSets;
   }
 
-  getAdaptationSetFor = type => this.adaptationSets.find(({ attributes: { mimeType } }) => mimeType.includes(type));
+  findAdaptationSetByType = type => this.adaptationSets.find(({ attributes: { mimeType } }) => mimeType.includes(type));
 }

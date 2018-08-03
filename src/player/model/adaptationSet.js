@@ -18,4 +18,28 @@ export class AdaptationSet {
     this.attributes = attributes;
     this.segmentTemplate = segmentTemplate;
   }
+
+  mimeType() {
+    const { codecs } = this.representations[0].attributes;
+
+    return `${this.attributes.mimeType}; codecs="${codecs}"`;
+  }
+
+  countSegment() {
+    return Math.round(30 / (this.segmentTemplate.duration / 1000));
+  }
+
+  makeReadable(field) {
+    const { id } = this.representations[0].attributes;
+
+    return this.segmentTemplate[field].replace(/\$RepresentationID\$/g, id);
+  }
+
+  readableMedia(number) {
+    return this.makeReadable('media').replace('$Number$', number);
+  }
+
+  readableInitializer() {
+    return this.makeReadable('initialization');
+  }
 }

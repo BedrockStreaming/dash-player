@@ -1,22 +1,23 @@
 export class SourceBuffer {
-  constructor(mediaSource, codec) {
+  constructor(buffer) {
     this.queue = [];
 
-    this.buffer = mediaSource.addSourceBuffer(codec);
+    this.buffer = buffer;
     this.buffer.addEventListener('updateend', this.onSourceBufferUpdateEnd);
   }
 
   append(segment) {
     if (this.buffer.updating) {
-      this.queue.push(segment);
-    } else {
-      this.buffer.appendBuffer(segment.bytes);
+      return this.queue.push(segment);
     }
+
+    return this.buffer.appendBuffer(segment.bytes);
   }
 
   onSourceBufferUpdateEnd = () => {
     if (this.queue.length) {
       const segment = this.queue.pop();
+
       this.buffer.appendBuffer(segment.bytes);
     }
   };
