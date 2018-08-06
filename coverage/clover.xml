@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1533566343581" clover="3.2.0">
-  <project timestamp="1533566343581" name="All files">
-    <metrics statements="49" coveredstatements="34" conditionals="6" coveredconditionals="6" methods="22" coveredmethods="12" elements="77" coveredelements="52" complexity="0" loc="49" ncloc="49" packages="5" files="6" classes="6">
+<coverage generated="1533567316839" clover="3.2.0">
+  <project timestamp="1533567316839" name="All files">
+    <metrics statements="58" coveredstatements="43" conditionals="10" coveredconditionals="10" methods="25" coveredmethods="15" elements="93" coveredelements="68" complexity="0" loc="58" ncloc="58" packages="5" files="7" classes="7">
       <package name="config.jest">
         <metrics statements="12" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
         <file name="setup.js" path="/Users/pc/Soft/zenika/m6web/dash-player/config/jest/setup.js">
           <metrics statements="12" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
-          <line num="3" count="2" type="stmt"/>
-          <line num="4" count="7" type="stmt"/>
+          <line num="3" count="3" type="stmt"/>
+          <line num="4" count="12" type="stmt"/>
           <line num="5" count="0" type="stmt"/>
-          <line num="8" count="7" type="stmt"/>
-          <line num="9" count="7" type="stmt"/>
-          <line num="10" count="7" type="stmt"/>
-          <line num="11" count="7" type="stmt"/>
-          <line num="13" count="7" type="stmt"/>
+          <line num="8" count="12" type="stmt"/>
+          <line num="9" count="12" type="stmt"/>
+          <line num="10" count="12" type="stmt"/>
+          <line num="11" count="12" type="stmt"/>
+          <line num="13" count="12" type="stmt"/>
           <line num="14" count="0" type="stmt"/>
           <line num="15" count="0" type="stmt"/>
-          <line num="20" count="2" type="stmt"/>
-          <line num="24" count="2" type="stmt"/>
+          <line num="20" count="3" type="stmt"/>
+          <line num="24" count="3" type="stmt"/>
         </file>
       </package>
       <package name="src.player">
@@ -38,7 +38,7 @@
         </file>
       </package>
       <package name="src.player.components">
-        <metrics statements="11" coveredstatements="11" conditionals="6" coveredconditionals="6" methods="6" coveredmethods="6"/>
+        <metrics statements="20" coveredstatements="20" conditionals="10" coveredconditionals="10" methods="9" coveredmethods="9"/>
         <file name="eventBus.js" path="/Users/pc/Soft/zenika/m6web/dash-player/src/player/components/eventBus.js">
           <metrics statements="11" coveredstatements="11" conditionals="6" coveredconditionals="6" methods="6" coveredmethods="6"/>
           <line num="4" count="2" type="stmt"/>
@@ -52,6 +52,18 @@
           <line num="27" count="2" type="stmt"/>
           <line num="28" count="2" type="stmt"/>
           <line num="30" count="1" type="stmt"/>
+        </file>
+        <file name="sourceBuffer.js" path="/Users/pc/Soft/zenika/m6web/dash-player/src/player/components/sourceBuffer.js">
+          <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+          <line num="3" count="5" type="stmt"/>
+          <line num="5" count="5" type="stmt"/>
+          <line num="6" count="5" type="stmt"/>
+          <line num="10" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="11" count="1" type="stmt"/>
+          <line num="14" count="1" type="stmt"/>
+          <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="19" count="1" type="stmt"/>
+          <line num="21" count="1" type="stmt"/>
         </file>
       </package>
       <package name="src.player.constants">
