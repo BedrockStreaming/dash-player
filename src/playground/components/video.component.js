@@ -13,17 +13,19 @@ const HtmlVideo = styled.video`
 `;
 
 export class VideoPlayer extends React.PureComponent {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.source !== this.props.source) {
-      this.player.load(nextProps.source);
+  componentDidUpdate(prevProps) {
+    const { source } = this.props;
+
+    if (prevProps.source !== source) {
+      this.player.load(source);
     }
   }
 
   attachVideoRef = ref => {
-    const { onVideoCreation, source } = this.props;
+    const { onPlayerEvent, source } = this.props;
 
     this.player = new Player(ref);
-    this.player.addEventListener(ALL, onVideoCreation);
+    this.player.addEventListener(ALL, onPlayerEvent);
 
     this.player.load(source);
   };
@@ -34,6 +36,6 @@ export class VideoPlayer extends React.PureComponent {
 }
 
 VideoPlayer.propTypes = {
-  onVideoCreation: PropTypes.func.isRequired,
+  onPlayerEvent: PropTypes.func.isRequired,
   source: PropTypes.string.isRequired,
 };
