@@ -48,7 +48,7 @@ class Playground extends React.PureComponent {
       <PlaygroundContainer>
         <Video innerRef={this.attachVideoRef} controls preload="metadata" />
         <InfoContainer>
-          {this.state.events.map(({ type, triggered }) => <p key={`${type}-${triggered}`}>{type}</p>)}
+          {this.state.events.map(({ type, triggeredAt }) => <p key={`${type}-${triggeredAt}`}>{type}</p>)}
         </InfoContainer>
       </PlaygroundContainer>
     );
