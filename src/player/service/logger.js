@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 export const logger = {
   log: console.log.bind(console),
   warn: console.warn.bind(console),

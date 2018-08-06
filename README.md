@@ -1,4 +1,4 @@
-# M6Web DASH Player
+# M6Web DASH Player [![Build Status](https://travis-ci.com/M6Web/dash-player.svg?branch=master)](https://travis-ci.com/M6Web/dash-player)
 
 ## Introduction
 
