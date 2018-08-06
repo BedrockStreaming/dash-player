@@ -2,20 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
-import { Player } from '../player/player';
-import { ALL } from '../player/constants/events';
+import { VideoPlayer } from './components/video.component';
+
+const DEFAULT_SOURCE = 'http://www.bok.net/dash/tears_of_steel/cleartext/stream.mpd';
+// const DEFAULT_SOURCE = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
 
 const PlaygroundContainer = styled.div`
   display: flex;
 
   height: 500px;
-`;
-
-const Video = styled.video`
-  flex: 1;
-
-  width: 100%;
-  height: auto;
 `;
 
 const InfoContainer = styled.div`
@@ -29,27 +24,34 @@ class Playground extends React.PureComponent {
     super(props);
 
     this.state = {
+      source: '',
       events: [],
     };
   }
 
-  attachVideoRef = ref => {
-    this.videoRef = ref;
+  setInputRef = ref => {
+    this.inputRef = ref;
+  };
 
-    const player = new Player(ref);
-    player.addEventListener(ALL, event => this.setState({ events: this.state.events.concat(event) }));
+  updateSource = () => {
+    this.setState({ events: [], source: this.inputRef.value });
+  };
 
-    // player.load('https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd');
-    player.load('http://www.bok.net/dash/tears_of_steel/cleartext/stream.mpd');
+  handleVideoCreation = event => {
+    this.setState({ events: this.state.events.concat(event) });
   };
 
   render() {
     return (
       <PlaygroundContainer>
-        <Video innerRef={this.attachVideoRef} controls preload="metadata" />
         <InfoContainer>
+          <h2>Source</h2>
+          <input ref={this.setInputRef} type="text" defaultValue={DEFAULT_SOURCE} />
+          <button onClick={this.updateSource}>Load</button>
+          <h2>Events</h2>
           {this.state.events.map(({ type, triggeredAt }) => <p key={`${type}-${triggeredAt}`}>{type}</p>)}
         </InfoContainer>
+        {this.state.source && <VideoPlayer source={this.state.source} onVideoCreation={this.handleVideoCreation} />}
       </PlaygroundContainer>
     );
   }
