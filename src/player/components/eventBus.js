@@ -25,7 +25,7 @@ export const eventBus = new class EventBus {
   triggerEvent = event => {
     (this.listeners[event.type] || []).concat(this.listeners[ALL]).forEach(listener => {
       try {
-        listener(event);
+        listener({ ...event, triggered: Date.now() / 1000 });
       } catch (error) {
         logger.warn(error);
       }
