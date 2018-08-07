@@ -12,7 +12,7 @@ export class MediaSource {
     this.mediaSource.addEventListener('sourceopen', this.onSourceOpen);
   }
 
-  mediaUrl = () => URL.createObjectURL(this.mediaSource);
+  mediaUrl = () => window.URL.createObjectURL(this.mediaSource);
 
   setCurrentPeriod = period => {
     this.currentPeriod = period;
