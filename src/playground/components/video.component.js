@@ -16,18 +16,24 @@ export class VideoPlayer extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { source } = this.props;
 
-    if (prevProps.source !== source) {
+    if (source && prevProps.source !== source) {
       this.player.load(source);
     }
   }
 
+  componentWillUnmount() {
+    this.player.removeEventListener(ALL, this.props.onPlayerEvent);
+  }
+
   attachVideoRef = ref => {
-    const { onPlayerEvent, source } = this.props;
+    if (ref) {
+      const { onPlayerEvent, source } = this.props;
 
-    this.player = new Player(ref);
-    this.player.addEventListener(ALL, onPlayerEvent);
+      this.player = new Player(ref);
+      this.player.addEventListener(ALL, onPlayerEvent);
 
-    this.player.load(source);
+      this.player.load(source);
+    }
   };
 
   render() {

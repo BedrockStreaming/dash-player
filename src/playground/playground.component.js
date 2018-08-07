@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { VideoPlayer } from './components/video.component';
+import { Form } from './components/form.component';
 import { handlePlayerEvent, handleSourceChange } from './actions';
 
 const PlaygroundContainer = styled.div`
@@ -18,10 +19,6 @@ const InfoContainer = styled.div`
   padding: 20px;
 `;
 
-const Input = styled.input`
-  width: 100%;
-`;
-
 const Playground = props => {
   const { source, events } = props;
 
@@ -29,7 +26,7 @@ const Playground = props => {
     <PlaygroundContainer>
       <InfoContainer>
         <h2>Source</h2>
-        <Input type="text" value={source} onChange={props.handleSourceChange} />
+        <Form onSubmit={props.handleSourceChange} source={source} />
         <h2>Events</h2>
         {events.map(({ type, triggeredAt }) => <p key={`${type}-${triggeredAt}`}>{type}</p>)}
       </InfoContainer>
@@ -52,7 +49,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handlePlayerEvent: event => dispatch(handlePlayerEvent(event)),
-  handleSourceChange: event => dispatch(handleSourceChange(event.target.value)),
+  handleSourceChange: value => dispatch(handleSourceChange(value)),
 });
 
 export const ConnectedPlayground = connect(mapStateToProps, mapDispatchToProps)(Playground);
