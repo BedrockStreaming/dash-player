@@ -1,5 +1,5 @@
 branches:
-  only: 
+  only:
     - master
 
 language: node_js
@@ -13,3 +13,4 @@ cache:
 
 script:
    - yarn lint
+   - yarn test
