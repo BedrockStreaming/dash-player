@@ -4,7 +4,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    playground: './src/playground/index.js',
+    playground: './src/playground/app.js',
   },
   module: {
     rules: [

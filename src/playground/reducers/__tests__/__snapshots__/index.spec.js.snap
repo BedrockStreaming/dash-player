@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`playgroundReducer should HANDLE_PLAYER_EVENT 1`] = `
+Object {
+  "events": Array [
+    Object {},
+  ],
+  "source": "http://www.bok.net/dash/tears_of_steel/cleartext/stream.mpd",
+}
+`;
+
+exports[`playgroundReducer should SEARCH_VI 1`] = `
+Object {
+  "events": Array [],
+  "source": "source",
+}
+`;
