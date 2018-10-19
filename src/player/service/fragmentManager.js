@@ -3,24 +3,16 @@ export class FragmentManager {
     this.baseUrl = baseUrl;
   }
 
-  initFragments = (adaptationSet, callback) => {
+  fetchInitFragment(adaptationSet, callback) {
     const initialization = adaptationSet.readableInitializer();
-    const initFragmentUrl = this.baseUrl + initialization;
 
-    this.fetchFragment(initFragmentUrl, callback).then(() => this.fetchFragments(adaptationSet, callback));
-  };
+    return this.fetchFragment(this.baseUrl + initialization, callback);
+  }
 
-  fetchFragments(adaptationSet, callback) {
-    const segmentsCounts = adaptationSet.countSegment();
+  fetchNextFragment(adaptationSet, start, callback) {
+    const media = adaptationSet.readableMedia(start);
 
-    let promise = Promise.resolve();
-
-    for (let fragmentNumber = 1; fragmentNumber <= segmentsCounts; fragmentNumber++) {
-      const media = adaptationSet.readableMedia(fragmentNumber);
-      promise = promise.then(() => this.fetchFragment(this.baseUrl + media, callback));
-    }
-
-    return promise;
+    return this.fetchFragment(this.baseUrl + media, callback);
   }
 
   fetchFragment(url, callback) {
