@@ -35,8 +35,13 @@ export class AdaptationSet {
     return this.segmentTemplate[field].replace(/\$RepresentationID\$/g, id);
   }
 
-  readableMedia(number) {
-    return this.makeReadable('media').replace('$Number$', number);
+  readableMedia(startTime) {
+    const previousSegments = Math.round(startTime * 1000 / this.segmentTemplate.duration);
+
+    return this.makeReadable('media').replace(
+      '$Number$',
+      Math.max(this.segmentTemplate.startNumber, previousSegments + 1),
+    );
   }
 
   readableInitializer() {
